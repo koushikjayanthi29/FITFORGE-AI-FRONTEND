@@ -32,7 +32,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of(frontendOrigin));
+        config.setAllowedOriginPatterns(List.of(frontendOrigin, "https://fitforge-web-*.onrender.com"));
         config.setAllowedMethods(
             List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
         );
