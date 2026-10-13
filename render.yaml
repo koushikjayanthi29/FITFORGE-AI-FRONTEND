@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: fitforge-api
+    runtime: docker
+    plan: free
+    rootDir: Backend
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://${{fitforge-db.host}}:${{fitforge-db.port}}/${{fitforge-db.database}}
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: fitforge-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: fitforge-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_ORIGIN
+        value: https://${{fitforge-web.host}}
+
+  - type: web
+    name: fitforge-web
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://${{fitforge-api.host}}
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+databases:
+  - name: fitforge-db
+    databaseName: fitforge
+    user: fitforge
+    plan: free

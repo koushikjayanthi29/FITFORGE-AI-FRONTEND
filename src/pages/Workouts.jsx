@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../services/api";
 
 export default function Workouts() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function Workouts() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/workouts")
+      .get(`${API_BASE_URL}/api/workouts`)
       .then((res) => {
         setWorkoutData(Array.isArray(res.data) ? res.data : []);
       })

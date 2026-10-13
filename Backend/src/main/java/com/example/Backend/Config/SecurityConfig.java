@@ -3,6 +3,7 @@ package com.example.Backend.Config;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,16 +19,20 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final String frontendOrigin;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+    public SecurityConfig(
+            JwtAuthenticationFilter jwtAuthenticationFilter,
+            @Value("${app.frontend-origin:http://localhost:5173}") String frontendOrigin) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.frontendOrigin = frontendOrigin;
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedOrigins(List.of(frontendOrigin));
         config.setAllowedMethods(
             List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
         );

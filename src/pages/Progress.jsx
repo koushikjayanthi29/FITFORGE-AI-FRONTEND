@@ -2,8 +2,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../services/api";
 
-const API = "http://localhost:8080/api/progress";
+const API = `${API_BASE_URL}/api/progress`;
 const USER_ID = localStorage.getItem("userId");
 export default function Progress() {
   const navigate = useNavigate();

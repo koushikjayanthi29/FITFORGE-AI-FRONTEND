@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { API_BASE_URL } from "../services/api";
 
 export default function Nutrition() {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ export default function Nutrition() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/nutrition")
+      .get(`${API_BASE_URL}/api/nutrition`)
       .then((response) => {
         const data = response.data;
         setPlans(Array.isArray(data) ? data : []);

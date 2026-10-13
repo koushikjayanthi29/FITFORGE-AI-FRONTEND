@@ -1,5 +1,26 @@
 # React + Vite
 
+## Deploying on Render
+
+The root `render.yaml` defines three free-tier Render resources:
+
+- `fitforge-web` serves the Vite frontend.
+- `fitforge-api` runs the Spring Boot backend.
+- `fitforge-db` is the PostgreSQL database.
+
+The frontend and backend use Render service references for the API URL, CORS
+origin, and database connection. Render generates `JWT_SECRET` for the backend;
+do not put API keys or deployment secrets in this repository.
+
+Install the Render CLI from https://render.com/docs/cli, then run `render login`
+in your own terminal and approve the browser prompt. Never send your Render API
+key in chat. Render's free Postgres plan has limited storage and retention; use
+a paid plan before relying on this database for production data.
+
+For local development, the frontend defaults to `http://localhost:8080`; the
+backend defaults to a local PostgreSQL instance on port 5432. Set `JWT_SECRET`
+in the backend environment before starting it.
+
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
 Currently, two official plugins are available:

@@ -1,11 +1,11 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../services/api";
 import "./Recommendations.css";
 
 const PROFILE_ID = 1;
-const API_URL =
-  `http://localhost:8080/api/workout-recommendations/${PROFILE_ID}`;
+const API_URL = `${API_BASE_URL}/api/workout-recommendations/${PROFILE_ID}`;
 
 function Recommendations() {
   const [data, setData] = useState(null);
