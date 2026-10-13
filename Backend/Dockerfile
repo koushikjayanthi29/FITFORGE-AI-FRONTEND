@@ -3,9 +3,10 @@ FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
 
 COPY pom.xml .
+COPY settings.xml /root/.m2/settings.xml
 COPY src ./src
 
-RUN mvn -B clean package -DskipTests
+RUN mvn -s /root/.m2/settings.xml -B clean package -DskipTests
 
 FROM eclipse-temurin:17-jre
 WORKDIR /app
